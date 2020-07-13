@@ -2,13 +2,13 @@ package com.util;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class JdbcUtil {
@@ -87,8 +87,7 @@ public class JdbcUtil {
 				T obj = clazz.newInstance();
 				
 				for(int i=0;i<columns.size();i++){
-					String name = columns.get(i);// bname  bid
-						   name = name.toLowerCase();
+					String name = columns.get(i).toLowerCase();
 					Field field = clazz.getDeclaredField(name);
 					field.setAccessible(true);
 
@@ -110,7 +109,7 @@ public class JdbcUtil {
 						boolean value = rs.getBoolean(name);
 						field.set(obj, value);
 					}else if("java.sql.Date".equals(type)){
-						Date value = rs.getDate(name);
+						Date value = rs.getTime(name);
 						field.set(obj, value);
 					}
 					
